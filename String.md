@@ -1,24 +1,28 @@
 LeetCode's  String 
 
-1. **length()**
+1. `String str = new String(char[], offset, count)`
 
-2. toCharArray()
+2. **length()**
 
-3. charAt()
+3. toCharArray()
 
-4. trim()
+4. charAt()
 
-5. 截取字符串
+5. trim()
+
+6. 截取字符串
 
   1. split(String regex) 
     1. 这个参数并不是一个简单的分割用的字符，而是一个正则表达式
     2. 而"." "|" "*" "+"都是转义字符，必须得加"\\\";
-    3. 且regex不像在python里可为空
-  2. substring()
+    3. **且regex不像在python里可为空**
+  2. substring(startInx, **endInx + 1**);
 
-6. indexOf() 
+7. indexOf() 
 
-7. contains() Returns true if and only if this string contains the specified sequence of char values.
+8. toLowerCase()  toUpperCase()
+
+9. contains() Returns true if and only if this string contains the specified sequence of char values.
 
    ```java
    public boolean contains(CharSequence s) {
@@ -26,28 +30,27 @@ LeetCode's  String
    }
    ```
 
-8. String VS Char
+10. String VS Char
 
-   1. String s =  "blabla";
+  1. String s =  "blabla";
 
-   2. Char c = 'x';
+  2. Char c = 'x';
 
-   3. ```java
-      // Char <--> String
-      String str = "abc";
-      Char[] charArray = str.toCharArray();
-      int length = charArray.length;
-      String s1 = new String(charArray);
-      String s2 = String.valueOf(charArray);
-      ```
+  3. ```java
+     String str = "abc";
+     // Char[] <-- String
+     Char[] charArray = str.toCharArray();
+     int length = charArray.length;
+     // Char[] --> String
+     String s1 = new String(charArray);
+     String s2 = String.valueOf(charArray);
+     // char --> String
+     String s = 'a' + "";
+     // char <-- String
+     char c = s.charAt(inx);
+     ```
 
-   4. ​
-
-   5. ​
-
-   6. ​
-
-9. String VS StringBuilder
+11. String VS StringBuilder
 
    1. String 是静态的，如果要拼接字符串最好用StringBuilder，字符串直接相加也能实现拼接字符串的效果，但实际上底层还是用StringBuilder实现，不适合大量地拼接
    2. StringBuilder 
@@ -55,23 +58,24 @@ LeetCode's  String
       2. toString()
       3. reverse()
 
-10. String <--> int
+12. String <--> int
 
-  ```java
-  int i = Integer.parseInt([String]);
-  int i = Integer.parseInt([String], [in radix]);
-  int i = Integer.valueof(my_str).intValue();
+   ```java
+   int i = Integer.parseInt([String]);
+   int i = Integer.parseInt([String], [in radix]);
+   int i = Integer.valueof(my_str).intValue();
 
-  String s = String.valueOf(i); // 利用String类提供的工厂方法
-  String s = Integer.toString(i);
-  String s = "" + i; // java的toString机制
-  ```
+   String s = String.valueOf(i); // 利用String类提供的工厂方法
+   String s = Integer.toString(i);
+   String s = "" + i; // java的toString机制
+   ```
 
-11. int -> char 
+13. int -> char 
 
    ```java
    char c = (char)(a + '0');
-   int i = int i = Integer.parseInt("" = c);
+   int i = Integer.parseInt("" + c);
+   int i = '1'- '0'; // 1
    ```
 
    ​
@@ -135,7 +139,7 @@ if(s.equals(s.substring(step, totalLen) + s.substring(0, step)))
 
 ```java
 int i = 0;
-for(; i < step; i ++){ // 拿第一个子串和之后的每个子串相比
+for(; i < step; i ++) { // 拿第一个子串和之后的每个子串相比
   char temp = charArr[i];
   int j = 0;
   for(; j < subNum; j ++){ // 第一个子串的第i字符与之后每个子串的第i个字符相比
@@ -208,7 +212,20 @@ for(int i = len - 1; i >= 0; i --){
 }
 ```
 
-6. 长度不同的两个二进制数字的字符串，如何去相加？无需考虑长度，只要一个while循环即可搞定。
+6. 长度不同的两个二进制数字的字符串，如何去相加？无需考虑长度，只要一个while循环即可搞定(三个for循环变一个while循环！)。
+
+```java
+int i = 0;
+for(; i < len1 && i < len2; i ++){
+  ...
+}
+for(; i < len1; i ++){
+  ...
+}
+for(; i < len2; i ++){
+  ...
+}
+```
 
 ```java
 // 确定长的字符串：让a指向长的字符串
@@ -238,7 +255,7 @@ while(i >= 0 || j >= 0){
 }
 ```
 
-7. 在String Compression中，对于非尾字符，while 与 for循环本身没区别，对于最后一个元素的统计数字，单循环中会处理不到，只好在for循环外进行补救；如何不用补救呢？使用代码2中的嵌套循环即可。本质上是嵌套循环和单循环的区别，不是while和for的优劣差；习惯上是使用代码1，但不要忘了处理最后一个字符。
+7. **如何避免单独处理最后一个字符？** 在String Compression中，对于非尾字符，while 与 for循环本身没区别，对于最后一个元素的统计数字，单循环中会处理不到，只好在for循环外进行补救；如何不用补救呢？使用代码2中的嵌套循环即可。本质上是嵌套循环和单循环的区别，不是while和for的优劣差；习惯上是使用代码1，但不要忘了处理最后一个字符。
 
 
 ```java
@@ -250,7 +267,7 @@ for(int i = 1; i < chars.length; i ++){
     doSomething();
   }
 }
-// 很容易忘记处理最后一种字符(or something)
+// 很容易忘记处理最后一种字符(or something)，需要在循环之外进行补救
 doSomething();
 ```
 
@@ -275,8 +292,38 @@ private void swap(char[] arr, int l, int r) {
     arr[r--] = temp;
   }
 }
+/*
+仿照StringBuilder的reverse()
+*/
+public void reverse(char[] arr){
+  int n = chars.length - 1;
+  for (int j = (n-1) >> 1; j >= 0; j--) { // j恰好是数组的中间位置的左侧，
+    int k = n - j; // 数组中j位置的对面
+    char cj = chars[j];
+    char ck = chars[k];
+    chars[j] = ck;
+    chars[k] = cj;
+  }
+}
+public String reverse(String s){
+  int len = s.length();
+  char[] res = new char[len];
+  for(int i = 0; i <= len / 2; i ++){ // 得是 <=，原因在于s的反转要放在一个新的char[]中，如果不是<=，在len是一个奇数的时候，就会导致len/2的位置没有被赋值，这就不是反转咯
+    res[len - 1 - i] = s.charAt(i);
+    res[i] = s.charAt(len - 1 -i);
+  }
+  return new String(res);
+}
 ```
 
-9. ​
+9. 创建数组并初始化
+
+   ```java
+   double[] myList = {1.9, 2.9, 3.4, 3.5};
+   ```
+
+10. lowercase letters 小写字母
+
+11. ​程序中要维护很多状态，注意对状态的初始化、修改，以及何时对状态进行判定以进行下一步操作
 
 

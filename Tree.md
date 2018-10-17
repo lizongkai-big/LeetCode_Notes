@@ -1,6 +1,9 @@
 ### Tree
 
-1.  不能对空节点取其左右节点  但如何避免这种繁琐的判断？使用 ?=  Mine **VS** God 
+1.  广泛使用递归
+2.  学习非递归深度搜索+层搜索
+3.  判空
+4.  不能对空节点取其左右节点  但如何避免这种繁琐的判断？使用 ?=  Mine **VS** God 
 
 ```java
 // 不能对空节点取其左右节点            
@@ -57,13 +60,11 @@ res.right = mergeTrees(t1.right, t2.right);
 return res;
 ```
 
-3. 萨芬的
-
-```java
-
-```
-
-
+3. **543. Diameter of Binary Tree**
+   1. Longest path of the Binary Tree
+   2. Formula:  `Diameter = Max(Diameter, leftDepth + rightDepth)`
+   3. Depth = Max(leftDepth, rightDepth) + 1; if(node == null) Depth = 0;
+4. ​
 
 
 
